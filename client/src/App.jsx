@@ -1,9 +1,46 @@
 import React, { Component } from "react";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import LandingPage from "./LandingPage";
 
-class App extends Component {
+export default class App extends Component {
   render() {
-    return <div>Antidia</div>;
+    return (
+      <BrowerRouter>
+        <div>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
+            <Route
+              exact
+              path="/login"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
+            <Route
+              exact
+              path="/signUp"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
+            <Route
+              exact
+              path="/profile"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
+            <Route
+              exact
+              path="/glucose_average"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
+            <Route
+              exact
+              path="/ac1"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
+          </Switch>
+        </div>
+      </BrowerRouter>
+    );
   }
 }
-
-export default App;
