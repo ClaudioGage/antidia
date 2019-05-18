@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import LandingPage from "./LandingPage";
 
 export default class App extends Component {
   render() {
     return (
-      <BrowerRouter>
+      <Router>
         <div>
           <Switch>
             <Route
@@ -40,7 +40,7 @@ export default class App extends Component {
             />
           </Switch>
         </div>
-      </BrowerRouter>
+      </Router>
     );
   }
 }

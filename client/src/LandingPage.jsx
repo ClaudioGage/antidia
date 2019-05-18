@@ -1,25 +1,25 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class LandingPage extends Component {
   render() {
     return (
       <header>
-        <section class="header-content">
-          <img
-            class="rocky-dashed animate-pop-in"
-            src="https://cssanimation.rocks/levelup/public/images/rocky-dashed.svg"
-          />
-          <h1 class="header-title animate-pop-in">Antidia</h1>
-          <h3 class="header-subtitle animate-pop-in">
-            The personal tracker for diabetes for all your needs
+        <section className="header-content">
+          <img className="rocky-dashed animate-pop-in" src="" />
+          <h1 className="header-title animate-pop-in">Antidia</h1>
+          <h3 className="header-subtitle animate-pop-in">
+            Diabetes personal tracker for all your needs
           </h3>
-          <p class="header-button animate-pop-in">
-            <a
-              href="http://courses.cssanimation.rocks/p/level-up"
-              class="button"
-            >
-              Get started today
+          <p className="header-button animate-pop-in">
+            <a>
+              <Link to="/signUp">
+                <button className="button">SIGN UP</button>
+              </Link>
+
+              <Link to="/login">
+                <button className="button">LOG IN</button>
+              </Link>
             </a>
           </p>
         </section>

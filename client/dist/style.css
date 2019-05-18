@@ -1,3 +1,44 @@
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #04e8f8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
 header {
   align-items: center;
   display: flex;
@@ -14,7 +55,7 @@ header {
 header:before {
   animation: fade-slide-down 2s .5s cubic-bezier(0, 0.5, 0, 1) forwards;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, .8)),
-    url(https://cssanimation.rocks/levelup/public/images/background.jpg) no-repeat bottom;
+    url(https://cdn.dribbble.com/users/32512/screenshots/3556927/waves_background_growing_data_by_gleb.gif) no-repeat bottom;
   background-size: cover;
   content: "";
   opacity: 0;
@@ -39,13 +80,29 @@ header:after {
   z-index: 0;
 }
 
-.header-title,
-.header-subtitle {
-  color: #fff;
+.header-title {
+  color: #ffffff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 72px;
+  margin: 0 0 24px;
+  text-align: center;
+  text-transform: uppercase
 }
 
 .header-subtitle {
-  text-transform: uppercase;
+  color: #fff;
+  font-family: 'Righteous', cursive;
+  font-size: 40px;
+  font-weight: normal;
+  line-height: 60px;
+  margin: 10px 0 20px;
+  text-shadow: 2px 2px 0 #000, margin: 10px 0 24px;
+  text-align: center;
+}
+
+.header-subtitle {
   margin-bottom: 5rem;
 }
 
