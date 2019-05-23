@@ -40,6 +40,11 @@ export default class App extends Component {
               path="/ac1"
               render={props => <LandingPage {...props} isAuthed={true} />}
             />
+            <Route
+              exact
+              path="/ressetpassword"
+              render={props => <LandingPage {...props} isAuthed={true} />}
+            />
           </Switch>
         </div>
       </Router>
