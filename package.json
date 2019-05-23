@@ -1,10 +1,9 @@
 {
-  "name": "react-boilerplate",
+  "name": "antidia",
   "version": "1.0.0",
-  "description": "Modern React boilerplate",
+  "description": "The diabetes personal tracker for all your needs",
   "main": "index.js",
-  "repository": "https://github.com/BrunoTorresF/react-boilerplate",
-  "author": "Bruno Torres",
+  "author": "Claudio Gage",
   "license": "MIT",
   "scripts": {
     "dev": "webpack --config webpack.config.js --watch --mode development",

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import app from 'firebase/app';
 import {
   AUTH_CONFIG
 } from "/home/hc-39/Documents/Antidia/env.js";
@@ -11,4 +11,10 @@ const config = {
   messagingSenderId: AUTH_CONFIG.messagingSenderId,
 };
 
-firebase.initializeApp(config);
+class Firebase {
+  constructor() {
+    app.initializeApp(config);
+  }
+}
+
+export default Firebase;
