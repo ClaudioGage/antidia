@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 import Login from "./Login";
 
 export default class App extends Component {
@@ -18,17 +19,18 @@ export default class App extends Component {
             <Route
               exact
               path="/login"
-              render={props => <Login {...props} isAuthed={true} />}
+              render={props => <SignIn {...props} isAuthed={true} />}
             />
             <Route
               exact
               path="/signUp"
               render={props => <SignUp {...props} isAuthed={true} />}
             />
+
             <Route
               exact
               path="/profile"
-              render={props => <LandingPage {...props} isAuthed={true} />}
+              render={props => <Profile {...props} isAuthed={true} />}
             />
             <Route
               exact
