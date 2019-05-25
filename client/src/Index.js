@@ -6,6 +6,7 @@ import App from './App';
 import Firebase, {
   FirebaseContext
 } from './components/Firebase';
+import * as serviceWorker from './serviceWorker';
 
 
 render( < FirebaseContext.Provider value = {
@@ -15,3 +16,5 @@ render( < FirebaseContext.Provider value = {
     App / >
     <
     /FirebaseContext.Provider> , document.getElementById('app'));
+
+    serviceWorker.unregister();

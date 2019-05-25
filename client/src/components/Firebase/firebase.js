@@ -8,6 +8,7 @@ const config = {
   apiKey: AUTH_CONFIG.apiKey,
   authDomain: AUTH_CONFIG.authDomain,
   databaseURL: AUTH_CONFIG.databaseURL,
+  projectId: AUTH_CONFIG.projectId,
   storageBucket: AUTH_CONFIG.storageBucket,
   messagingSenderId: AUTH_CONFIG.messagingSenderId,
 };
