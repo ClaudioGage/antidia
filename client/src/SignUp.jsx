@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-
 import { withFirebase } from "/home/hc-39/Documents/Antidia/client/src/components/Firebase";
 
 const INITIAL_STATE = {
