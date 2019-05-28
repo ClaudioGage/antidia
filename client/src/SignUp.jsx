@@ -91,6 +91,5 @@ const SignUpLink = () => (
     Don't have an account? <Link to={"/signUp"}>Sign Up</Link>
   </p>
 );
-const SignUpForm = withRouter(withFirebase(SignUpFormBase));
-export default SignUpFormBase;
-export { SignUpForm, SignUpLink };
+export default withRouter(withFirebase(SignUpFormBase));
+export { SignUpLink };

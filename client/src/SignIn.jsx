@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   error: null
 };
 
-export default class SignInFormBase extends Component {
+class SignInFormBase extends Component {
   constructor(props) {
     super(props);
 
@@ -74,5 +74,4 @@ export default class SignInFormBase extends Component {
   }
 }
 
-const SignInForm = withRouter(withFirebase(SignInFormBase));
-export { SignInForm };
+export default withRouter(withFirebase(SignInFormBase));
