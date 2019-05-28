@@ -4,6 +4,7 @@ import LandingPage from "./LandingPage";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import { withAuthentication } from "./components/Session";
+import ForgotPassword from "./components/Password/ForgetPassword"
 
 class App extends Component {
   constructor(props) {
@@ -58,9 +59,9 @@ class App extends Component {
             />
             <Route
               exact
-              path="/ressetpassword"
+              path="/forgotpassword"
               render={props => (
-                <LandingPage {...props} authUser={this.state.authUser} />
+                <ForgotPassword {...props} authUser={this.state.authUser} />
               )}
             />
           </Switch>

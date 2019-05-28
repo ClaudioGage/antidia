@@ -1,8 +1,7 @@
 import React from "react";
 
 import AuthUserContext from "./context";
-import { withFirebase } from "/home/hc-39/Documents/Antidia/client/src/components/Firebase";
-
+import { withFirebase } from "../Firebase";
 const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
     constructor(props) {
@@ -38,3 +37,9 @@ const withAuthentication = Component => {
 };
 
 export default withAuthentication;
+
+/* INSTRUCTIONS REGARDING ON HOW TO USE withAuthentication
+modes to apply authentication:
+
+how to apply it:
+*/

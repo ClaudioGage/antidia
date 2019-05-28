@@ -9,12 +9,11 @@ import Firebase, {
 import * as serviceWorker from './serviceWorker';
 
 
-render( < FirebaseContext.Provider value = {
-      new Firebase()
-    } >
-    <
-    App / >
-    <
-    /FirebaseContext.Provider> , document.getElementById('app'));
+render( 
+  <FirebaseContext.Provider value={new Firebase()}>
+    <App />
+  </FirebaseContext.Provider>,
+  document.getElementById('app'),
+);
 
     serviceWorker.unregister();

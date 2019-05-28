@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { SignUpLink } from "./SignUp";
 import { withFirebase } from "/home/hc-39/Documents/Antidia/client/src/components/Firebase";
 
@@ -68,6 +68,9 @@ class SignInFormBase extends Component {
         </div>
         <div>
           <SignUpLink />
+        </div>
+        <div>
+          <Link to={"/forgotpassword"}>Forgot Password?</Link>
         </div>
       </div>
     );
