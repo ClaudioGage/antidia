@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import { withFirebase } from "./components/Firebase";
+import firebase from "firebase";
+import { withFirebase } from "/home/hc-39/Documents/Antidia/client/src/components/Firebase";
+console.log(withFirebase);
 
 class App extends Component {
   constructor(props) {
@@ -13,15 +15,15 @@ class App extends Component {
       authUser: null
     };
   }
-  /*
+
   componentDidMount() {
-    this.listener = this.props.firebase.auth().onAuthStateChanged(authUser => {
+    firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
         : this.setState({ authUser: null });
     });
   }
-
+  /*
   componentWillUnmount() {
     this.listener();
   }
@@ -81,4 +83,4 @@ class App extends Component {
     );
   }
 }
-export default App;
+export default withFirebase(App);
