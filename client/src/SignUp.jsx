@@ -46,6 +46,9 @@ class SignUpFormBase extends Component {
       email === "" ||
       username === "";
 
+    console.log(isInvalid);
+    console.log(passwordOne, passwordTwo);
+
     return (
       <form onSubmit={this.onSubmit}>
         <input
@@ -53,7 +56,7 @@ class SignUpFormBase extends Component {
           value={username}
           onChange={this.onChange}
           type="text"
-          placeholder="Username"
+          placeholder="Full Name"
         />
         <input
           name="email"
@@ -76,6 +79,7 @@ class SignUpFormBase extends Component {
           type="password"
           placeholder="Confirm Password"
         />
+
         <button disabled={isInvalid} type="submit">
           Sign Up
         </button>

@@ -3,18 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+import Profile from "./Profile";
 import { withAuthentication } from "./components/Session";
-import ForgotPassword from "./components/Password/ForgetPassword"
+import ForgotPassword from "./components/Password/ForgetPassword";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: null
-    };
-  }
-
   render() {
     return (
       <Router>
@@ -36,19 +29,11 @@ class App extends Component {
               render={props => <SignUp {...props} isAuthed={true} />}
             />
 
-            <Route
-              exact
-              path="/profile"
-              render={props => (
-                <Profile {...props} authUser={this.state.authUser} />
-              )}
-            />
+            <Route exact path="/profile" component={Profile} />
             <Route
               exact
               path="/glucose_average"
-              render={props => (
-                <LandingPage {...props} authUser={this.state.authUser} />
-              )}
+              render={props => <LandingPage {...props} isAuthed={true} />}
             />
             <Route
               exact
