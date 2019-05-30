@@ -3,6 +3,7 @@ import {
   AUTH_CONFIG
 } from "/home/hc-39/Documents/Antidia/env.js";
 import 'firebase/auth';
+import 'firebase/database';
 
 const config = {
   apiKey: AUTH_CONFIG.apiKey,
@@ -18,6 +19,8 @@ class Firebase {
     app.initializeApp(config);
     //start auth
     this.auth = app.auth();
+    // start database
+    this.db = app.database();
   }
   /*Auth API */
 
@@ -36,6 +39,18 @@ class Firebase {
 
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
+
+  /* Database API */
+
+  // post specifc user by id
+  user = uid => this.db.ref(`users/${uid}`);
+
+  // get all users
+  users = () => this.db.ref('users');
+
+  //post into into glucose
+  glucose = uid => this.db.ref(`users/${uid}/glucose`)
+
 }
 
 export default Firebase;
