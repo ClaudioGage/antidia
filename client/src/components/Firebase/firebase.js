@@ -48,8 +48,13 @@ class Firebase {
   // get all users
   users = () => this.db.ref('users');
 
+  //create glucose
+  crg = uid => this.db.ref(`users/${uid}/glucose/`);
+
   //post into into glucose
-  glucose = uid => this.db.ref(`users/${uid}/glucose`)
+  // uid the specific user
+  // gid the glucose measure created
+  glucose = (uid, gid) => this.db.ref(`users/${uid}/glucose/${gid}`);
 
 }
 

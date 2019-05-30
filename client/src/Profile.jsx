@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthUserContext, withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
 const State = {
-  glucose: "",
+  glucose: "134",
   date: ""
 };
 
@@ -13,9 +13,24 @@ class Profile extends Component {
 
     this.state = { ...State };
   }
+  componentDidMount() {
+    this.setglucose(this.props.firebase.auth.O);
+  }
+
+  setglucose = g => {
+    const { glucose } = this.state;
+    this.props.firebase.crg(g).set({
+      glucose
+    });
+    console.log("is it getting invoked?...", g);
+  };
 
   render() {
-    console.log("checking for ...", AuthUserContext.Consumer);
+    console.log(
+      "another way of getting the user id",
+      this.props.firebase.auth.O
+    );
+
     console.log(this.props);
     console.log("id of the user", this.props.firebase.user);
     return (

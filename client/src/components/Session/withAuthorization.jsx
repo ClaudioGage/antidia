@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import AuthUserContext from "./context";
 import { withFirebase } from "../Firebase";
@@ -23,7 +23,7 @@ ex.
 */
 
 const withAuthorization = condition => Component => {
-  class WithAuthorization extends React.Component {
+  class WithAuthorization extends Component {
     componentDidMount() {
       this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
         if (!condition(authUser)) {
