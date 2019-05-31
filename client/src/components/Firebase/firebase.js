@@ -1,9 +1,9 @@
-import app from 'firebase/app';
+import app from "firebase/app";
 import {
   AUTH_CONFIG
 } from "/home/hc-39/Documents/Antidia/env.js";
-import 'firebase/auth';
-import 'firebase/database';
+import "firebase/auth";
+import "firebase/database";
 
 const config = {
   apiKey: AUTH_CONFIG.apiKey,
@@ -11,7 +11,7 @@ const config = {
   databaseURL: AUTH_CONFIG.databaseURL,
   projectId: AUTH_CONFIG.projectId,
   storageBucket: AUTH_CONFIG.storageBucket,
-  messagingSenderId: AUTH_CONFIG.messagingSenderId,
+  messagingSenderId: AUTH_CONFIG.messagingSenderId
 };
 
 class Firebase {
@@ -37,8 +37,7 @@ class Firebase {
 
   doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
-  doPasswordUpdate = password =>
-    this.auth.currentUser.updatePassword(password);
+  doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
   /* Database API */
 
@@ -46,7 +45,7 @@ class Firebase {
   user = uid => this.db.ref(`users/${uid}`);
 
   // get all users
-  users = () => this.db.ref('users');
+  users = () => this.db.ref("users");
 
   //create glucose
   crg = uid => this.db.ref(`users/${uid}/glucose/`);
@@ -59,12 +58,39 @@ class Firebase {
 
   glda = (uid, glu, date) => {
     var gludate = {};
-    gludate[date] = glu;
-    console.log("this is gludate ...", gludate)
-    this.db.ref(`users/${uid}/glucose/`).child("glucoseLevels").push(gludate);
-  }
+    gludate["date"] = date;
+    gludate["glucoseLevel"] = glu;
+    console.log("this is gludate ...", gludate);
+    this.db
+      .ref(`users/${uid}/glucose/`)
+      .child("glucoseLevels")
+      .push(gludate);
+  };
 
+  retrieve = uid => {
+    var db = this.db;
+    return new Promise(function (resolve, reject) {
+      db.ref(`users/${uid}/glucose/glucoseLevels`)
+        .on("value", function (snapshot) {
+          console.log(" this is unfiltered data ...", snapshot.val());
+          var data = snapshot.val();
+          var dateglu = [];
 
+          var keys = Object.keys(data);
+
+          for (var i = 0; i < keys.length; i++) {
+            var x = keys[i];
+            var date = data[x].date;
+            var glucose = data[x].glucoseLevel;
+            var info = [date, glucose];
+            dateglu.push(info);
+          }
+          console.log("filter data array of arrays...", dateglu);
+          return resolve(dateglu);
+        });
+    })
+
+  };
 }
 
 export default Firebase;

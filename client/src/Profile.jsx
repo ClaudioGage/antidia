@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { AuthUserContext, withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
+//import { dateglu } from "./components/Firebase";
 const State = {
   firstInstance: "testing",
   glucose: "127",
-  date: "agust"
+  date: "agust",
+  data: ""
 };
 
 class Profile extends Component {
@@ -17,7 +19,25 @@ class Profile extends Component {
   componentDidMount() {
     //this.createGlucoseNode(this.props.firebase.auth.O);
     this.onSubmit();
+    this.retrieveGluDate();
   }
+
+  retrieveGluDate = () => {
+    var uid = this.props.firebase.auth.O;
+    const data = this.props.firebase
+      .retrieve(uid)
+      .then(s => {
+        console.log("resolved promise is returning ... ", s);
+        this.setState({
+          data: s
+        });
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+    console.log("retrive is working ...", uid);
+    console.log("this is data . . .", data);
+  };
 
   createGlucoseNode = g => {
     const { firstInstance } = this.state;
@@ -46,10 +66,8 @@ class Profile extends Component {
       <AuthUserContext.Consumer>
         {authUser => (
           <div>
-            <h1>
-              Account: {authUser.email}{" "}
-              {console.log("this is authUser. . .", authUser.uid)}
-            </h1>
+            <h1>Account: {authUser.email} </h1>
+            {console.log("this is the state I want ...", this.state.data)}
           </div>
         )}
       </AuthUserContext.Consumer>
