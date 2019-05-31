@@ -51,10 +51,19 @@ class Firebase {
   //create glucose
   crg = uid => this.db.ref(`users/${uid}/glucose/`);
 
-  //post into into glucose
   // uid the specific user
-  // gid the glucose measure created
+  // gid the glucose measure created, used to create the child containing all glucose measurements
   glucose = (uid, gid) => this.db.ref(`users/${uid}/glucose/${gid}`);
+
+  // Post request to add glucose level and date
+
+  glda = (uid, glu, date) => {
+    var gludate = {};
+    gludate[date] = glu;
+    console.log("this is gludate ...", gludate)
+    this.db.ref(`users/${uid}/glucose/`).child("glucoseLevels").push(gludate);
+  }
+
 
 }
 

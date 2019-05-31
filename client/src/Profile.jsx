@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { AuthUserContext, withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
 const State = {
-  glucose: "134",
-  date: ""
+  firstInstance: "testing",
+  glucose: "127",
+  date: "agust"
 };
 
 class Profile extends Component {
@@ -14,15 +15,23 @@ class Profile extends Component {
     this.state = { ...State };
   }
   componentDidMount() {
-    this.setglucose(this.props.firebase.auth.O);
+    //this.createGlucoseNode(this.props.firebase.auth.O);
+    this.onSubmit();
   }
 
-  setglucose = g => {
-    const { glucose } = this.state;
-    this.props.firebase.crg(g).set({
-      glucose
+  createGlucoseNode = g => {
+    const { firstInstance } = this.state;
+    this.props.firebase.crg(g).update({
+      glucoseLevels: [firstInstance]
     });
-    console.log("is it getting invoked?...", g);
+  };
+
+  onSubmit = () => {
+    const { glucose, date } = this.state;
+    var uid = this.props.firebase.auth.O;
+    this.props.firebase.glda(uid, glucose, date);
+
+    event.preventDefault();
   };
 
   render() {
