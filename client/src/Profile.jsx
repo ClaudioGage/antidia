@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { AuthUserContext, withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
-//import { dateglu } from "./components/Firebase";
+import PieChart from "./PieChart";
+
+var d = new Date();
+
 const State = {
   firstInstance: "testing",
-  glucose: "127",
-  date: "agust",
-  data: ""
+  glucose: "",
+  date: "",
+  data: "",
+  actual: ""
 };
 
 class Profile extends Component {
@@ -17,8 +21,6 @@ class Profile extends Component {
     this.state = { ...State };
   }
   componentDidMount() {
-    //this.createGlucoseNode(this.props.firebase.auth.O);
-    this.onSubmit();
     this.retrieveGluDate();
   }
 
@@ -27,16 +29,11 @@ class Profile extends Component {
     const data = this.props.firebase
       .retrieve(uid)
       .then(s => {
-        console.log("resolved promise is returning ... ", s);
         this.setState({
           data: s
         });
       })
-      .catch(function(err) {
-        console.log(err);
-      });
-    console.log("retrive is working ...", uid);
-    console.log("this is data . . .", data);
+      .catch(function(err) {});
   };
 
   createGlucoseNode = g => {
@@ -46,15 +43,23 @@ class Profile extends Component {
     });
   };
 
-  onSubmit = () => {
+  onSubmit = event => {
     const { glucose, date } = this.state;
     var uid = this.props.firebase.auth.O;
     this.props.firebase.glda(uid, glucose, date);
+    this.setState({
+      ...State
+    });
 
     event.preventDefault();
   };
 
+  onChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
   render() {
+    const { glucose, date } = this.state;
     console.log(
       "another way of getting the user id",
       this.props.firebase.auth.O
@@ -63,14 +68,36 @@ class Profile extends Component {
     console.log(this.props);
     console.log("id of the user", this.props.firebase.user);
     return (
-      <AuthUserContext.Consumer>
-        {authUser => (
-          <div>
-            <h1>Account: {authUser.email} </h1>
-            {console.log("this is the state I want ...", this.state.data)}
-          </div>
-        )}
-      </AuthUserContext.Consumer>
+      <div>
+        <AuthUserContext.Consumer>
+          {authUser => (
+            <div>
+              <h1>Account: {authUser.email} </h1>
+              {console.log("this is the state I want ...", this.state.data)}
+            </div>
+          )}
+        </AuthUserContext.Consumer>
+        <form onSubmit={this.onSubmit}>
+          <input
+            name="glucose"
+            value={glucose}
+            onChange={this.onChange}
+            type="number"
+            placeholder="Glucose index"
+          />
+          <input
+            name="date"
+            value={date}
+            onChange={this.onChange}
+            type="date"
+            placeholder="date"
+          />
+          <button type="submit">submot</button>
+        </form>
+        <div>
+          <PieChart />
+        </div>
+      </div>
     );
   }
 }
