@@ -23,6 +23,39 @@ class Profile extends Component {
   componentDidMount() {
     this.retrieveGluDate();
   }
+  amountForPieChart = () => {
+    var pieData = this.state.data;
+    var totalGls = this.state.data.length;
+    console.log("this is complete number of elements", totalGlss);
+    // hyplogucemic, normal and hyperglucemic counter and array of specific values.
+    var hypoCount = 0;
+    var hypoAr = [];
+    var normalCount = 0;
+    var normalAr = [];
+    var hyperCount = 0;
+    var hyperAr = [];
+    for (var i = 0; i < pieData.length; i++) {
+      if (pieData[i][1] <= 80) {
+        hypoCount++;
+        hypoAr.push(pieData[i][1]);
+      } else if (pieData[i][1] > 180) {
+        hyperCount++;
+        hyperAr.push(pieData[i][1]);
+      } else {
+        normalCount++;
+        normalAr.push(pieData[i][1]);
+      }
+    }
+    console.log(
+      `value of hypoG after loop ${hypoCount} value of hypoAr ${hypoAr}`
+    );
+    console.log(
+      `value of hypoG after loop ${hyperCount} value of hypoAr ${hyperAr}`
+    );
+    console.log(
+      `value of hypoG after loop ${normalCount} value of hypoAr ${normalAr}`
+    );
+  };
 
   retrieveGluDate = () => {
     var uid = this.props.firebase.auth.O;
@@ -96,6 +129,7 @@ class Profile extends Component {
         </form>
         <div>
           <PieChart />
+          <button onClick={this.amountForPieChart}>PieChart testing</button>
         </div>
       </div>
     );
