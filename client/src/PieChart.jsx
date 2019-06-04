@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Doughnut, defaults } from "react-chartjs-2";
 
 defaults.global.mantianAspectRatio = false;
+
 const l = 10;
 
 const State = {
@@ -69,6 +70,7 @@ export default class PieChart extends Component {
   }
 
   render() {
+    console.log(this.props.allDatAverage);
     return (
       <div>
         <h2>Glucose range average</h2>
