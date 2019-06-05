@@ -11,7 +11,8 @@ const State = {
   glucose: "",
   date: "",
   data: "",
-  allDatAverage: []
+  allDatAverage: [],
+  testing: [25, 25, 25]
 };
 
 class Profile extends Component {
@@ -23,14 +24,9 @@ class Profile extends Component {
   componentDidMount() {
     this.retrieveGluDate();
   }
-  /*
-  componentDidUpdate() {
-    this.retrieveGluDate();
-  }
-  */
+
   amountForPieChart = () => {
     var pieData = this.state.data;
-    console.log("is pieData being updated? ...", pieData);
     var totalGls = this.state.data.length;
     console.log("this is complete number of elements", totalGls);
     // hyplogucemic, normal and hyperglucemic counter and array of specific values.
@@ -107,14 +103,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { glucose, date, allDatAverage } = this.state;
-    console.log(
-      "another way of getting the user id",
-      this.props.firebase.auth.O
-    );
-
-    console.log(this.props);
-    console.log("id of the user", this.props.firebase.user);
+    const { glucose, date, allDatAverage, testing } = this.state;
     return (
       <div>
         <AuthUserContext.Consumer>
@@ -146,6 +135,9 @@ class Profile extends Component {
           <PieChart allDatAverage={allDatAverage} />
           <button onClick={this.amountForPieChart}>PieChart testing</button>
         </div>
+        <div>
+          <PieChart allDatAverage={testing} />
+        </div>
       </div>
     );
   }
@@ -154,3 +146,12 @@ class Profile extends Component {
 const condition = authUser => !!authUser;
 
 export default withFirebase(withAuthorization(condition)(Profile));
+/*
+console.log(
+  "another way of getting the user id",
+  this.props.firebase.auth.O
+);
+
+console.log(this.props);
+console.log("id of the user", this.props.firebase.user);
+*/

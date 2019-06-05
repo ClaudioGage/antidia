@@ -3,23 +3,6 @@ import { Doughnut, defaults } from "react-chartjs-2";
 
 defaults.global.mantianAspectRatio = false;
 
-const l = 10;
-
-const State = {
-  labels: [">80", "80-180", "188>"],
-  datasets: [
-    {
-      data: [l, 70, 20],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-      borderColor: "#fff",
-      borderWidth: 1,
-      hoverBorderColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-      hoverBorderWidth: 8
-    }
-  ]
-};
-
 const options = {
   responsive: true,
   legend: {
@@ -59,14 +42,39 @@ export default class PieChart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...State };
+    this.state = {
+      labels: [">80", "80-180", "188>"],
+      datasets: [
+        {
+          data: this.props.allDatAverage,
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          borderColor: "#fff",
+          borderWidth: 1,
+          hoverBorderColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          hoverBorderWidth: 8
+        }
+      ]
+    };
   }
+
   componentWillMount() {
     setInterval(() => {
       this.setState({
-        ...State
+        labels: [">80", "80-180", "188>"],
+        datasets: [
+          {
+            data: this.props.allDatAverage,
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            borderColor: "#fff",
+            borderWidth: 1,
+            hoverBorderColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            hoverBorderWidth: 8
+          }
+        ]
       });
-    }, 5000);
+    }, 500);
   }
 
   render() {
