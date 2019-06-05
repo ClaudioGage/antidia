@@ -8,6 +8,11 @@ const options = {
   legend: {
     display: true
   },
+  title: {
+    display: true,
+    text: ` Glucose Average `,
+    position: "bottom"
+  },
   animation: {
     animateScale: true,
     animateRotate: true

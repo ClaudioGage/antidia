@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthUserContext, withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
 import PieChart from "./PieChart";
+import LineChart from "./LineChart";
 
 var d = new Date();
 
@@ -136,7 +137,7 @@ class Profile extends Component {
           <button onClick={this.amountForPieChart}>PieChart testing</button>
         </div>
         <div>
-          <PieChart allDatAverage={testing} />
+          <LineChart />
         </div>
       </div>
     );
