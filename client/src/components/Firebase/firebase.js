@@ -82,8 +82,6 @@ class Firebase {
           for (var i = 0; i < keys.length; i++) {
             var x = keys[i];
             var timeStamp = data[x].timeStamp;
-            console.log("is timeStamp back end working for retrieve ... ",
-              timeStamp)
             var date = data[x].date;
             var glucose = data[x].glucoseLevel;
             var info = [timeStamp, date, glucose];

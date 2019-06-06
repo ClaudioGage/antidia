@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthUserContext, withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
 import PieChart from "./PieChart";
+import ComLineChart from "./ComLineChart";
 import LineChart from "./LineChart";
 
 const State = {
@@ -10,7 +11,7 @@ const State = {
   glucose: "",
   date: "",
   data: "",
-  allDatAverage: [],
+  TotalDataPie: [],
   timeStamp: ""
 };
 const rDay = Math.floor(Date.now() / 3600000) - 24;
@@ -62,7 +63,7 @@ class Profile extends Component {
       `value of normalCount after loop ${normalCount} value of normalAr ${normalAr}`
     );
     this.setState({
-      allDatAverage: [hypoCount, normalCount, hyperCount]
+      TotalDataPie: [hypoCount, normalCount, hyperCount]
     });
   };
 
@@ -109,7 +110,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { glucose, date, allDatAverage } = this.state;
+    const { glucose, date, TotalDataPie, data } = this.state;
     return (
       <div>
         <AuthUserContext.Consumer>
@@ -138,11 +139,12 @@ class Profile extends Component {
           <button type="submit">submot</button>
         </form>
         <div>
-          <PieChart allDatAverage={allDatAverage} />
+          <PieChart TotalDataPie={TotalDataPie} />
           <button onClick={this.amountForPieChart}>PieChart testing</button>
         </div>
         <div>
-          <LineChart />
+          <ComLineChart />
+          <LineChart DataForLine={data} />
         </div>
       </div>
     );

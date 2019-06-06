@@ -51,7 +51,7 @@ export default class PieChart extends Component {
       labels: [">80", "80-180", "188>"],
       datasets: [
         {
-          data: this.props.allDatAverage,
+          data: this.props.TotalDataPie,
           backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
           hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
           borderColor: "#fff",
@@ -69,7 +69,7 @@ export default class PieChart extends Component {
         labels: [">80", "80-180", "188>"],
         datasets: [
           {
-            data: this.props.allDatAverage,
+            data: this.props.TotalDataPie,
             backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
             hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
             borderColor: "#fff",
@@ -83,7 +83,7 @@ export default class PieChart extends Component {
   }
 
   render() {
-    console.log(this.props.allDatAverage);
+    console.log(this.props.TotalDataPie);
     return (
       <div>
         <h2>Glucose range average</h2>
