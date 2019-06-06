@@ -11,7 +11,7 @@ const State = {
   date: "",
   data: "",
   allDatAverage: [],
-  timeStamp: Math.floor(Date.now() / 3600000)
+  timeStamp: ""
 };
 const rDay = Math.floor(Date.now() / 3600000) - 24;
 const rWeek = Math.floor(Date.now() / 3600000) - 168;
@@ -43,13 +43,13 @@ class Profile extends Component {
     for (var i = 0; i < pieData.length; i++) {
       if (pieData[i][1] <= 80) {
         hypoCount++;
-        hypoAr.push(pieData[i][1]);
-      } else if (pieData[i][1] > 180) {
+        hypoAr.push(pieData[i][2]);
+      } else if (pieData[i][2] > 180) {
         hyperCount++;
-        hyperAr.push(pieData[i][1]);
+        hyperAr.push(pieData[i][2]);
       } else {
         normalCount++;
-        normalAr.push(pieData[i][1]);
+        normalAr.push(pieData[i][2]);
       }
     }
     console.log(
@@ -110,7 +110,7 @@ class Profile extends Component {
 
   render() {
     const { glucose, date, allDatAverage } = this.state;
-    console.log(this.state.timeStamp)
+    return (
       <div>
         <AuthUserContext.Consumer>
           {authUser => (

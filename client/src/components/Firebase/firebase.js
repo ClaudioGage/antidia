@@ -58,7 +58,7 @@ class Firebase {
 
   glda = (uid, glu, date, timeStamp) => {
     var gludate = {};
-    gludate["timestamp"] = timeStamp;
+    gludate["timeStamp"] = timeStamp;
     gludate["date"] = date;
     gludate["glucoseLevel"] = glu;
     console.log("this is gludate ...", gludate);
@@ -82,6 +82,8 @@ class Firebase {
           for (var i = 0; i < keys.length; i++) {
             var x = keys[i];
             var timeStamp = data[x].timeStamp;
+            console.log("is timeStamp back end working for retrieve ... ",
+              timeStamp)
             var date = data[x].date;
             var glucose = data[x].glucoseLevel;
             var info = [timeStamp, date, glucose];
