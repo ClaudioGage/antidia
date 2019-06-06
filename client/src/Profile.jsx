@@ -5,16 +5,19 @@ import { withFirebase } from "./components/Firebase";
 import PieChart from "./PieChart";
 import LineChart from "./LineChart";
 
-var d = new Date();
-
 const State = {
   firstInstance: "testing",
   glucose: "",
   date: "",
   data: "",
   allDatAverage: [],
-  testing: [25, 25, 25]
+  timeStamp: Math.floor(Date.now() / 3600000)
 };
+const rDay = Math.floor(Date.now() / 3600000) - 24;
+const rWeek = Math.floor(Date.now() / 3600000) - 168;
+const rMonth = Math.floor(Date.now() / 3600000) - 730;
+const rThreeMonth = Math.floor(Date.now() / 3600000) - 2190;
+const rSixMonth = Math.floor(Date.now() / 3600000) - 4380;
 
 class Profile extends Component {
   constructor(props) {
@@ -69,7 +72,8 @@ class Profile extends Component {
       .retrieve(uid)
       .then(s => {
         this.setState({
-          data: s
+          data: s,
+          timeStamp: Math.floor(Date.now() / 3600000)
         });
         console.log(this.state.data);
         this.amountForPieChart();
@@ -87,12 +91,13 @@ class Profile extends Component {
   };
 
   onSubmit = event => {
-    const { glucose, date } = this.state;
+    const { glucose, date, timeStamp } = this.state;
     var uid = this.props.firebase.auth.O;
-    this.props.firebase.glda(uid, glucose, date);
+    this.props.firebase.glda(uid, glucose, date, timeStamp);
     this.setState({
       glucose: "",
-      date: ""
+      date: "",
+      timeStamp: Math.floor(Date.now() / 3600000)
     });
     this.retrieveGluDate();
 
@@ -104,8 +109,8 @@ class Profile extends Component {
   };
 
   render() {
-    const { glucose, date, allDatAverage, testing } = this.state;
-    return (
+    const { glucose, date, allDatAverage } = this.state;
+    console.log(this.state.timeStamp)
       <div>
         <AuthUserContext.Consumer>
           {authUser => (

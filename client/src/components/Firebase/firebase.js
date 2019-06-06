@@ -56,8 +56,9 @@ class Firebase {
 
   // Post request to add glucose level and date
 
-  glda = (uid, glu, date) => {
+  glda = (uid, glu, date, timeStamp) => {
     var gludate = {};
+    gludate["timestamp"] = timeStamp;
     gludate["date"] = date;
     gludate["glucoseLevel"] = glu;
     console.log("this is gludate ...", gludate);
@@ -80,9 +81,10 @@ class Firebase {
 
           for (var i = 0; i < keys.length; i++) {
             var x = keys[i];
+            var timeStamp = data[x].timeStamp;
             var date = data[x].date;
             var glucose = data[x].glucoseLevel;
-            var info = [date, glucose];
+            var info = [timeStamp, date, glucose];
             dateglu.push(info);
           }
           console.log("filter data array of arrays...", dateglu);
