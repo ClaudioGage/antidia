@@ -7,13 +7,13 @@ import ComLineChart from "./ComLineChart";
 import LineChart from "./LineChart";
 
 const State = {
-  firstInstance: "testing",
+  firstInstance: "",
   glucose: "",
   date: "",
   data: "",
   TotalDataPie: [],
   timeStamp: "",
-  Daydata: ""
+  rawData: ""
 };
 const rDay = Math.floor(Date.now() / 3600000) - 24;
 const rWeek = Math.floor(Date.now() / 3600000) - 168;
@@ -32,30 +32,60 @@ class Profile extends Component {
     this.retrieveGluDate();
   }
 
+  dayButton = () => {
+    //setInterval(() => {
+    this.amountForPieChart();
+    this.amountForPieChart();
+    //}, 500);
+    console.log("value of firstInstance...", this.state.firstInstance);
+  };
+
+  weekButton = () => {
+    this.weekAmountForPieChart();
+    this.weekAmountForPieChart();
+  };
+
   filterForDay = () => {
-    var dayArray = [];
+    var dataArr = [];
     //setInterval(() => {
     const dayData = this.state.data;
     console.log("DATA BEFORE FILTERING!!!!!", dayData);
-    let begin = Math.floor(Date.now() / 3600000);
     console.log(" ISSSS THEEE timeStamp is active", dayData[49][0]);
-    for (let i = dayData.length - 1; i > 45; i--) {
+    // change condition to constant set for specific filter
+    for (let i = dayData.length - 1; i > 47; i--) {
       console.log("loop working", dayData[i]);
-      dayArray.push([dayData[i]]);
-      console.log("passing arrays inside arrays", dayArray);
+      dataArr.push(dayData[i]);
+      console.log("passing arrays inside arrays", dataArr);
     }
-    console.log("fuck this", dayArray, dayArray.length);
+
     this.setState({
-      Daydata: dayArray
+      rawData: dataArr
     });
+    //}, 800);
+    console.log("is raw data being passed", this.state.rawData);
+  };
+
+  filterForWeek = () => {
+    var dataArr = [];
+    //setInterval(() => {
+    const weekData = this.state.data;
+    let begin = Math.floor(Date.now() / 3600000);
+    for (let i = weekData.length - 1; i > 45; i--) {
+      dataArr.push(weekData[i]);
+    }
+    this.setState({
+      rawData: dataArr
+    });
+
     //}, 800);
   };
 
   amountForPieChart = () => {
     this.filterForDay();
-    var pieData = this.state.Daydata;
-    var totalGls = this.state.data.length;
+    var pieData = this.state.rawData;
+    var totalGls = this.state.rawData.length;
     console.log("this is complete number of elements", totalGls);
+    console.log("what is rawData being passed as ... ", pieData);
     // hyplogucemic, normal and hyperglucemic counter and array of specific values.
     var hypoCount = 0;
     var hypoAr = [];
@@ -64,7 +94,7 @@ class Profile extends Component {
     var hyperCount = 0;
     var hyperAr = [];
     for (var i = 0; i < pieData.length; i++) {
-      if (pieData[i][1] <= 80) {
+      if (pieData[i][2] <= 80) {
         hypoCount++;
         hypoAr.push(pieData[i][2]);
       } else if (pieData[i][2] > 180) {
@@ -91,6 +121,35 @@ class Profile extends Component {
     });
   };
 
+  weekAmountForPieChart = () => {
+    this.filterForWeek();
+    var pieData = this.state.rawData;
+    var totalGls = this.state.rawData.length;
+    console.log("this is complete number of elements", totalGls);
+    // hyplogucemic, normal and hyperglucemic counter and array of specific values.
+    var hypoCount = 0;
+    var hypoAr = [];
+    var normalCount = 0;
+    var normalAr = [];
+    var hyperCount = 0;
+    var hyperAr = [];
+    for (var i = 0; i < pieData.length; i++) {
+      if (pieData[i][2] <= 80) {
+        hypoCount++;
+        hypoAr.push(pieData[i][2]);
+      } else if (pieData[i][2] > 180) {
+        hyperCount++;
+        hyperAr.push(pieData[i][2]);
+      } else {
+        normalCount++;
+        normalAr.push(pieData[i][2]);
+      }
+    }
+    this.setState({
+      TotalDataPie: [hypoCount, normalCount, hyperCount]
+    });
+  };
+
   retrieveGluDate = () => {
     var uid = this.props.firebase.auth.O;
     const data = this.props.firebase
@@ -100,7 +159,7 @@ class Profile extends Component {
           data: s,
           timeStamp: Math.floor(Date.now() / 3600000)
         });
-        console.log(this.state.data);
+        console.log("i am being called");
         this.amountForPieChart();
       })
       .catch(function(err) {
@@ -141,7 +200,6 @@ class Profile extends Component {
           {authUser => (
             <div>
               <h1>Account: {authUser.email} </h1>
-              {console.log("this is the state I want ...", this.state.data)}
             </div>
           )}
         </AuthUserContext.Consumer>
@@ -164,7 +222,10 @@ class Profile extends Component {
         </form>
         <div>
           <PieChart TotalDataPie={TotalDataPie} />
-          <button onClick={this.amountForPieChart}>PieChart testing</button>
+          <p>
+            <button onClick={this.dayButton}>Daily</button>
+            <button onClick={this.weekButton}>Weekly</button>
+          </p>
         </div>
         <div>
           <ComLineChart />
