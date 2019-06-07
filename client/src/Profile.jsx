@@ -12,7 +12,8 @@ const State = {
   date: "",
   data: "",
   TotalDataPie: [],
-  timeStamp: ""
+  timeStamp: "",
+  Daydata: ""
 };
 const rDay = Math.floor(Date.now() / 3600000) - 24;
 const rWeek = Math.floor(Date.now() / 3600000) - 168;
@@ -26,12 +27,33 @@ class Profile extends Component {
 
     this.state = { ...State };
   }
+
   componentDidMount() {
     this.retrieveGluDate();
   }
 
+  filterForDay = () => {
+    var dayArray = [];
+    //setInterval(() => {
+    const dayData = this.state.data;
+    console.log("DATA BEFORE FILTERING!!!!!", dayData);
+    let begin = Math.floor(Date.now() / 3600000);
+    console.log(" ISSSS THEEE timeStamp is active", dayData[49][0]);
+    for (let i = dayData.length - 1; i > 45; i--) {
+      console.log("loop working", dayData[i]);
+      dayArray.push([dayData[i]]);
+      console.log("passing arrays inside arrays", dayArray);
+    }
+    console.log("fuck this", dayArray, dayArray.length);
+    this.setState({
+      Daydata: dayArray
+    });
+    //}, 800);
+  };
+
   amountForPieChart = () => {
-    var pieData = this.state.data;
+    this.filterForDay();
+    var pieData = this.state.Daydata;
     var totalGls = this.state.data.length;
     console.log("this is complete number of elements", totalGls);
     // hyplogucemic, normal and hyperglucemic counter and array of specific values.
@@ -53,6 +75,7 @@ class Profile extends Component {
         normalAr.push(pieData[i][2]);
       }
     }
+
     console.log(
       `value of hypoG after loop ${hypoCount} value of hypoAr ${hypoAr}`
     );
@@ -62,6 +85,7 @@ class Profile extends Component {
     console.log(
       `value of normalCount after loop ${normalCount} value of normalAr ${normalAr}`
     );
+
     this.setState({
       TotalDataPie: [hypoCount, normalCount, hyperCount]
     });

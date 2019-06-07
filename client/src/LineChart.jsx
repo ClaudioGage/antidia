@@ -42,15 +42,12 @@ export default class comLineChart extends Component {
   labelsDataSet = () => {
     setInterval(() => {
       var Data = this.props.DataForLine;
-      console.log(Data, "is the Data for line being passed?");
       let label = [];
       let lineData = [];
-      console.log("should be an empty array", lineData);
       for (let i = 0; i < Data.length; i++) {
         label.push(Data[i][1]);
         lineData.push(Data[i][2]);
       }
-      console.log(`AAAAAA ${label} - labels and ${lineData}  -points`);
       this.setState({
         labels: label,
         datasets: [
@@ -62,14 +59,16 @@ export default class comLineChart extends Component {
         ]
       });
       console.log(" state for datasets data...", this.state.datasets[0].data);
-    }, 1000);
+    }, 800);
   };
 
   render() {
+    /*
     console.log(
       "this is the data for the line graph - ",
       this.props.DataForLine
     );
+    */
     return (
       <div>
         <Line data={this.state} options={options} />

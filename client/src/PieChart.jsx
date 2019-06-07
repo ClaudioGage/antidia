@@ -83,7 +83,7 @@ export default class PieChart extends Component {
   }
 
   render() {
-    console.log(this.props.TotalDataPie);
+    //console.log(this.props.TotalDataPie);
     return (
       <div>
         <h2>Glucose range average</h2>
