@@ -6,6 +6,8 @@ import SignIn from "./SignIn";
 import Profile from "./Profile";
 import { withAuthentication } from "./components/Session";
 import ForgotPassword from "./components/Password/ForgetPassword";
+import GlucoseAve from "./GlucoseAve";
+import HAC1 from "./HAC1";
 
 class App extends Component {
   render() {
@@ -33,13 +35,13 @@ class App extends Component {
             <Route
               exact
               path="/glucose_average"
-              render={props => <LandingPage {...props} isAuthed={true} />}
+              render={props => <GlucoseAve {...props} isAuthed={true} />}
             />
             <Route
               exact
               path="/ac1"
               render={props => (
-                <LandingPage {...props} authUser={this.state.authUser} />
+                <HAC1 {...props} authUser={this.state.authUser} />
               )}
             />
             <Route

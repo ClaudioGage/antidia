@@ -1,7 +1,8 @@
 import app from "firebase/app";
 import {
   AUTH_CONFIG
-} from "/home/marco/Documents/Antidia/antidia/.env.js";
+}
+from "/home/hc-39/Documents/Antidia/.env.js";
 import "firebase/auth";
 import "firebase/database";
 

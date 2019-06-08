@@ -5,17 +5,20 @@ import { withFirebase } from "./components/Firebase";
 import PieChart from "./PieChart";
 import ComLineChart from "./ComLineChart";
 import LineChart from "./LineChart";
+import Navigation from "./Navigation";
+
+var Dates = new Date();
+var date = `${Dates.getDate()}-${Dates.getMonth()}-${Dates.getFullYear()}`;
 
 const State = {
   firstInstance: "",
   glucose: "",
-  date: "",
+  date: date,
   data: "",
   TotalDataPie: [],
   timeStamp: "",
   rawData: ""
 };
-
 
 const rDay = Math.floor(Date.now() / 3600000) - 24;
 const rWeek = Math.floor(Date.now() / 3600000) - 168;
@@ -177,10 +180,8 @@ class Profile extends Component {
   };
 
   onSubmit = event => {
-    const { glucose, timeStamp } = this.state;
+    const { glucose, timeStamp, date } = this.state;
     var uid = this.props.firebase.auth.O;
-    var Dates = new Date;
-    const date =  Dates //`${Date.getDate()}-${Date.getMonth()}-${Date.getFullYear()}`;
     this.props.firebase.glda(uid, glucose, date, timeStamp);
     this.setState({
       glucose: "",
@@ -199,6 +200,9 @@ class Profile extends Component {
     const { glucose, TotalDataPie, data } = this.state;
     return (
       <div>
+        <div>
+          <Navigation />
+        </div>
         <AuthUserContext.Consumer>
           {authUser => (
             <div>

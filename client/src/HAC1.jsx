@@ -5,7 +5,6 @@ import PieChart from "./PieChart";
 import ComLineChart from "./ComLineChart";
 import LineChart from "./LineChart";
 
-const rMonth = Math.floor(Date.now() / 3600000) - 730;
 const rThreeMonth = Math.floor(Date.now() / 3600000) - 2190;
 const rSixMonth = Math.floor(Date.now() / 3600000) - 4380;
 
@@ -19,7 +18,7 @@ const State = {
   rawData: ""
 };
 
-class GlucoseAve extends Component {
+class HCA1 extends Component {
   constructor(props) {
     super(props);
 
@@ -65,4 +64,4 @@ class GlucoseAve extends Component {
 
 const condition = authUser => !!authUser;
 
-export default withFirebase(withAuthorization(condition)(GlucoseAve));
+export default withFirebase(withAuthorization(condition)(HCA1));
