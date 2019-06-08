@@ -15,6 +15,8 @@ const State = {
   timeStamp: "",
   rawData: ""
 };
+
+
 const rDay = Math.floor(Date.now() / 3600000) - 24;
 const rWeek = Math.floor(Date.now() / 3600000) - 168;
 const rMonth = Math.floor(Date.now() / 3600000) - 730;
@@ -175,12 +177,13 @@ class Profile extends Component {
   };
 
   onSubmit = event => {
-    const { glucose, date, timeStamp } = this.state;
+    const { glucose, timeStamp } = this.state;
     var uid = this.props.firebase.auth.O;
+    var Dates = new Date;
+    const date =  Dates //`${Date.getDate()}-${Date.getMonth()}-${Date.getFullYear()}`;
     this.props.firebase.glda(uid, glucose, date, timeStamp);
     this.setState({
       glucose: "",
-      date: "",
       timeStamp: Math.floor(Date.now() / 3600000)
     });
     this.retrieveGluDate();
@@ -193,7 +196,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { glucose, date, TotalDataPie, data } = this.state;
+    const { glucose, TotalDataPie, data } = this.state;
     return (
       <div>
         <AuthUserContext.Consumer>
@@ -210,13 +213,6 @@ class Profile extends Component {
             onChange={this.onChange}
             type="number"
             placeholder="Glucose index"
-          />
-          <input
-            name="date"
-            value={date}
-            onChange={this.onChange}
-            type="date"
-            placeholder="date"
           />
           <button type="submit">submot</button>
         </form>

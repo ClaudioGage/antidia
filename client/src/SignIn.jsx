@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import { SignUpLink } from "./SignUp";
-import { withFirebase } from "/home/hc-39/Documents/Antidia/client/src/components/Firebase";
+import { withFirebase } from "/home/marco/Documents/Antidia/antidia/client/src/components/Firebase";
+//"/home/hc-39/Documents/Antidia/client/src/components/Firebase" for use in hc
 
 const INITIAL_STATE = {
   email: "",
