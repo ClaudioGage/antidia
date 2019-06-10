@@ -26,26 +26,22 @@ const options = {
   responsive: true
 };
 
-export default class comLineChart extends Component {
+export default class LineOne extends Component {
   constructor(props) {
     super(props);
     this.state = {
       labels: [],
       datasets: ""
     };
-    this._isMounted = false;
   }
 
   componentDidMount() {
-    this._isMounted = true;
     this.labelsDataSet();
   }
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
+  componentWillUnmount() {}
 
   labelsDataSet = () => {
-    setInterval(() => {
+    setTimeout(() => {
       var Data = this.props.DataForLine;
       let label = [];
       let lineData = [];
@@ -58,7 +54,7 @@ export default class comLineChart extends Component {
         datasets: [
           {
             label: "Glucose level at",
-            backgroundColor: "#05e6ff",
+            backgroundColor: "#1FF3BB",
             data: lineData
           }
         ]

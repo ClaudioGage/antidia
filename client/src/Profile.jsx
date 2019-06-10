@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { AuthUserContext, withAuthorization } from "./components/Session";
+import { withAuthorization } from "./components/Session";
 import { withFirebase } from "./components/Firebase";
 import PieChart from "./PieChart";
 import ComLineChart from "./ComLineChart";
 import LineChart from "./LineChart";
 import Navigation from "./Navigation";
+import SecondPie from "./SecondPie";
+import ThirdPie from "./ThirdPie";
+import FourthPie from "./FourthPie";
+import LineOne from "./LineOne";
+import LineTwo from "./LineTwo";
+import LineThree from "./LineThree";
 
 var Dates = new Date();
 var date = `${Dates.getDate()}-${Dates.getMonth()}-${Dates.getFullYear()}`;
@@ -17,7 +23,13 @@ const State = {
   data: "",
   TotalDataPie: [],
   timeStamp: "",
-  rawData: ""
+  rawData: "",
+  monthD: "",
+  threeM: "",
+  sixM: "",
+  pieM: "",
+  pieThree: "",
+  pieSix: ""
 };
 
 const rDay = Math.floor(Date.now() / 3600000) - 24;
@@ -54,25 +66,21 @@ class Profile extends Component {
     var dataArr = [];
     //setInterval(() => {
     const dayData = this.state.data;
-    console.log("DATA BEFORE FILTERING!!!!!", dayData);
+
     console.log(" ISSSS THEEE timeStamp is active", dayData[49][0]);
     // change condition to constant set for specific filter
     for (let i = dayData.length - 1; i > 47; i--) {
-      console.log("loop working", dayData[i]);
       dataArr.push(dayData[i]);
-      console.log("passing arrays inside arrays", dataArr);
     }
 
     this.setState({
       rawData: dataArr
     });
     //}, 800);
-    console.log("is raw data being passed", this.state.rawData);
   };
 
   filterForWeek = () => {
     var dataArr = [];
-    //setInterval(() => {
     const weekData = this.state.data;
     let begin = Math.floor(Date.now() / 3600000);
     for (let i = weekData.length - 1; i > 45; i--) {
@@ -81,11 +89,58 @@ class Profile extends Component {
     this.setState({
       rawData: dataArr
     });
+  };
 
-    //}, 800);
+  generalPieData = (stateNum, pies) => {
+    var pieData = stateNum;
+    var hypoCount = 0;
+    var hypoAr = [];
+    var normalCount = 0;
+    var normalAr = [];
+    var hyperCount = 0;
+    var hyperAr = [];
+    for (var i = 0; i < pieData.length; i++) {
+      if (pieData[i][2] <= 80) {
+        hypoCount++;
+        hypoAr.push(pieData[i][2]);
+      } else if (pieData[i][2] > 180) {
+        hyperCount++;
+        hyperAr.push(pieData[i][2]);
+      } else {
+        normalCount++;
+        normalAr.push(pieData[i][2]);
+      }
+    }
+    this.setState({
+      [pies]: [hypoCount, normalCount, hyperCount]
+    });
+    console.log(
+      "if this works I am genius",
+      this.state.monthD,
+      this.state.pieM
+    );
+  };
+
+  generalFilter = (limit, states) => {
+    // use this filter using the param limit to set how do you want to filter data
+    //const states = states
+    var dataArr = [];
+    const gData = this.state.data;
+    for (let i = gData.length - 1; i > limit; i--) {
+      dataArr.push(gData[i]);
+    }
+    this.setState({
+      [states]: dataArr
+    });
   };
 
   amountForPieChart = () => {
+    this.generalFilter(40, "monthD");
+    this.generalPieData(this.state.monthD, "pieM");
+    this.generalFilter(30, "threeM");
+    this.generalPieData(this.state.threeM, "pieThree");
+    this.generalFilter(5, "sixM");
+    this.generalPieData(this.state.sixM, "pieSix");
     this.filterForDay();
     var pieData = this.state.rawData;
     var totalGls = this.state.rawData.length;
@@ -111,16 +166,6 @@ class Profile extends Component {
       }
     }
 
-    console.log(
-      `value of hypoG after loop ${hypoCount} value of hypoAr ${hypoAr}`
-    );
-    console.log(
-      `value of hyperG after loop ${hyperCount} value of hyperAr ${hyperAr}`
-    );
-    console.log(
-      `value of normalCount after loop ${normalCount} value of normalAr ${normalAr}`
-    );
-
     this.setState({
       TotalDataPie: [hypoCount, normalCount, hyperCount]
     });
@@ -130,7 +175,6 @@ class Profile extends Component {
     this.filterForWeek();
     var pieData = this.state.rawData;
     var totalGls = this.state.rawData.length;
-    console.log("this is complete number of elements", totalGls);
     // hyplogucemic, normal and hyperglucemic counter and array of specific values.
     var hypoCount = 0;
     var hypoAr = [];
@@ -155,6 +199,19 @@ class Profile extends Component {
     });
   };
 
+  calculateHCA1 = () => {
+    let denominator = this.state.data.length;
+    const dataH = this.state.data;
+    var totalGlu = 0;
+    for (let i = 0; i < dataH.length; i++) {
+      totalGlu += parseFloat(dataH[i][2]);
+    }
+    const gAverage = totalGlu / denominator;
+    const HCA1 = (gAverage + 46.7) / 28.7;
+
+    console.log(`the glucose ave ${gAverage} and the HCA1 ${HCA1}`);
+  };
+
   retrieveGluDate = () => {
     var uid = this.props.firebase.auth.O;
     const data = this.props.firebase
@@ -166,6 +223,7 @@ class Profile extends Component {
         });
         console.log("i am being called");
         this.amountForPieChart();
+        this.calculateHCA1();
       })
       .catch(function(err) {
         console.log(err);
@@ -197,39 +255,77 @@ class Profile extends Component {
   };
 
   render() {
-    const { glucose, TotalDataPie, data } = this.state;
+    const {
+      glucose,
+      TotalDataPie,
+      data,
+      monthD,
+      threeM,
+      sixM,
+      pieM,
+      pieSix,
+      pieThree
+    } = this.state;
+    const isEnabled = glucose.length > 0;
     return (
       <div>
         <div>
           <Navigation />
         </div>
-        <AuthUserContext.Consumer>
-          {authUser => (
-            <div>
-              <h1>Account: {authUser.email} </h1>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div>
+          <div className="box">
+            <div className="box">
+              <form onSubmit={this.onSubmit}>
+                <input
+                  className="input-group-field"
+                  name="glucose"
+                  value={glucose}
+                  onChange={this.onChange}
+                  type="number"
+                  placeholder="Glucose index"
+                />
+                <button
+                  disabled={!isEnabled}
+                  className="theSubmitButton"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </form>
+              <button className="SignOut" onClick={this.dayButton}>
+                Daily
+              </button>
+              <button className="SignOut" onClick={this.weekButton}>
+                Weekly
+              </button>
             </div>
-          )}
-        </AuthUserContext.Consumer>
-        <form onSubmit={this.onSubmit}>
-          <input
-            name="glucose"
-            value={glucose}
-            onChange={this.onChange}
-            type="number"
-            placeholder="Glucose index"
-          />
-          <button type="submit">submot</button>
-        </form>
-        <div>
-          <PieChart TotalDataPie={TotalDataPie} />
-          <p>
-            <button onClick={this.dayButton}>Daily</button>
-            <button onClick={this.weekButton}>Weekly</button>
-          </p>
-        </div>
-        <div>
-          <ComLineChart />
-          <LineChart DataForLine={data} />
+            <div className="box">
+              <PieChart TotalDataPie={TotalDataPie} />
+            </div>
+          </div>
+          <div className="box">
+            <div className="box">
+              <SecondPie TotalDataPie={pieM} />
+              <LineOne DataForLine={monthD} />
+            </div>
+            <div className="box">
+              <ThirdPie TotalDataPie={pieThree} />
+              <div className="box">
+                <FourthPie TotalDataPie={pieSix} />
+                <LineThree DataForLine={sixM} />
+              </div>
+            </div>
+            <div>
+              <div>
+                <ComLineChart />
+                <LineChart DataForLine={data} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

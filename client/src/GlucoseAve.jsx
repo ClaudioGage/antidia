@@ -4,6 +4,7 @@ import { withFirebase } from "./components/Firebase";
 import PieChart from "./PieChart";
 import ComLineChart from "./ComLineChart";
 import LineChart from "./LineChart";
+import Navigation from "./Navigation";
 
 const rMonth = Math.floor(Date.now() / 3600000) - 730;
 const rThreeMonth = Math.floor(Date.now() / 3600000) - 2190;
@@ -29,7 +30,7 @@ class GlucoseAve extends Component {
   retrieveGluDate = () => {
     var uid = this.props.firebase.auth.O;
     const data = this.props.firebase
-      .retrieve(uid)
+      .Hretrieve(uid)
       .then(s => {
         this.setState({
           data: s,
@@ -46,6 +47,9 @@ class GlucoseAve extends Component {
   render() {
     return (
       <div>
+        <div>
+          <Navigation />
+        </div>
         <div>
           <PieChart />
           <LineChart />

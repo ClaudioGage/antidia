@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Line, defaults } from "react-chartjs-2";
 
-defaults.global.mantianAspectRatio = false;
+defaults.global.mantianAspectRatio = true;
 
 const options = {
   title: {
@@ -26,7 +26,7 @@ const options = {
   responsive: true
 };
 
-export default class comLineChart extends Component {
+export default class LineTwo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +45,7 @@ export default class comLineChart extends Component {
   }
 
   labelsDataSet = () => {
-    setInterval(() => {
+    setTimeout(() => {
       var Data = this.props.DataForLine;
       let label = [];
       let lineData = [];
@@ -58,7 +58,7 @@ export default class comLineChart extends Component {
         datasets: [
           {
             label: "Glucose level at",
-            backgroundColor: "#05e6ff",
+            backgroundColor: "6D1FF3",
             data: lineData
           }
         ]

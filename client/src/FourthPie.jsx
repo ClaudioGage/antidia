@@ -10,7 +10,7 @@ const options = {
   },
   title: {
     display: true,
-    text: ` Glucose Average `,
+    text: `  Glucose Average Last Six Months `,
     position: "bottom"
   },
   animation: {
@@ -43,7 +43,7 @@ const options = {
   }
 };
 
-export default class PieChart extends Component {
+export default class FourthPie extends Component {
   constructor(props) {
     super(props);
 
@@ -51,7 +51,7 @@ export default class PieChart extends Component {
       labels: [">80", "80-180", "188>"],
       datasets: [
         {
-          data: this.props.TotalDataPie,
+          data: [12, 12, 12],
           backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
           hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
           borderColor: "#fff",
@@ -61,42 +61,32 @@ export default class PieChart extends Component {
         }
       ]
     };
-    this._isMounted = false;
   }
 
   componentDidMount() {
-    this._isMounted = true;
-    this.updated();
+    setTimeout(() => {
+      this.setState({
+        labels: [">80", "80-180", "188>"],
+        datasets: [
+          {
+            data: this.props.TotalDataPie,
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            borderColor: "#fff",
+            borderWidth: 1,
+            hoverBorderColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+            hoverBorderWidth: 8
+          }
+        ]
+      });
+    }, 500);
   }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-  updated = () => {
-    if (this._isMounted) {
-      setInterval(() => {
-        this.setState({
-          labels: [">80", "80-180", "188>"],
-          datasets: [
-            {
-              data: this.props.TotalDataPie,
-              backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-              hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-              borderColor: "#fff",
-              borderWidth: 1,
-              hoverBorderColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-              hoverBorderWidth: 8
-            }
-          ]
-        });
-      }, 1000);
-    }
-  };
 
   render() {
     //console.log(this.props.TotalDataPie);
     return (
       <div>
+        <h2>Glucose range average</h2>
         <Doughnut data={this.state} options={options} />
       </div>
     );

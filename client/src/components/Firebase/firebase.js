@@ -94,6 +94,32 @@ class Firebase {
     })
 
   };
+
+  Hretrieve = uid => {
+    var db = this.db;
+    return new Promise(function (resolve, reject) {
+      db.ref(`users/${uid}/glucose/glucoseLevels`)
+        .on("value", function (snapshot) {
+          console.log(" this is unfiltered data ...", snapshot.val());
+          var data = snapshot.val();
+          var dateglu = [];
+
+          var keys = Object.keys(data);
+
+          for (var i = 0; i < keys.length; i++) {
+            var x = keys[i];
+            var timeStamp = data[x].timeStamp;
+            var date = data[x].date;
+            var glucose = data[x].glucoseLevel;
+            var info = [timeStamp, date, glucose];
+            dateglu.push(info);
+          }
+          console.log("filter data array of arrays...", dateglu);
+          return resolve(dateglu);
+        });
+    })
+
+  };
 }
 
 export default Firebase;

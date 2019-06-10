@@ -38,6 +38,28 @@
   right: 0;
 }
 
+.theSubmitButton {
+  width: 70px;
+  border-radius: 35px;
+  font-size: 16px;
+  line-height: 1.33;
+  text-shadow: #F9FCFF;
+  background-color: #04e8f8;
+  color: white;
+
+}
+
+.SignOut {
+  width: auto;
+  border-radius: 35px;
+  font-size: 16px;
+  line-height: 1.33;
+  text-shadow: #F9FCFF;
+  background-color: #04e8f8;
+  color: white;
+
+}
+
 
 header {
   align-items: center;
@@ -98,8 +120,8 @@ header:after {
   font-weight: normal;
   line-height: 60px;
   margin: 10px 0 20px;
-  text-shadow: 2px 2px 0 #000, margin: 10px 0 24px;
-  text-align: center;
+  text-shadow: 2px 2px 0 #000,
+
 }
 
 .header-subtitle {
@@ -164,4 +186,107 @@ header:after {
   100% {
     transform: rotateZ(-4deg);
   }
+}
+
+.navigation {
+  list-style: none;
+  margin: 0;
+  width: 100%;
+  height: 90px;
+  padding: 20px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  background: deepskyblue;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+}
+
+.navigation a {
+  text-decoration: none;
+  display: block;
+  padding: 1em;
+  color: white;
+}
+
+.navigation a:hover {
+  background: darken(deepskyblue, 10%);
+}
+
+@media all and (max-width: 800px) {
+  .navigation {
+    justify-content: space-around;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .navigation {
+    -webkit-flex-flow: column wrap;
+    flex-flow: column wrap;
+    padding: 0;
+  }
+
+  .navigation a {
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+
+  .navigation li:last-of-type a {
+    border-bottom: none;
+  }
+}
+
+.consumer-letter {
+  text-decoration: none;
+  display: block;
+
+  color: white;
+  justify-content: first baseline
+}
+
+.input-group-rounded .input-group-field {
+  border-radius: 5000px 0 0 5000px;
+  padding-left: 1rem;
+  position: unset;
+}
+
+.input-group-rounded .input-group-field:hover {
+  border-radius: 5000px 0 0 5000px;
+  border: 2px solid rgb(2, 8, 97);
+
+}
+
+.box {
+  margin: 7px;
+  padding: 0 0px;
+  border: 2px solid rgb(167, 255, 251);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+.boxG {
+  border: 2px solid rgb(167, 255, 251);
+  border-radius: 8px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
 }

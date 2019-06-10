@@ -30,20 +30,9 @@ class App extends Component {
               path="/signUp"
               render={props => <SignUp {...props} isAuthed={true} />}
             />
-
             <Route exact path="/profile" component={Profile} />
-            <Route
-              exact
-              path="/glucose_average"
-              render={props => <GlucoseAve {...props} isAuthed={true} />}
-            />
-            <Route
-              exact
-              path="/ac1"
-              render={props => (
-                <HAC1 {...props} authUser={this.state.authUser} />
-              )}
-            />
+            <Route exact path="/glucose_average" component={GlucoseAve} />} />
+            <Route exact path="/ac1" component={HAC1} />} />
             <Route
               exact
               path="/forgotpassword"
