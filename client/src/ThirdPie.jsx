@@ -10,7 +10,7 @@ const options = {
   },
   title: {
     display: true,
-    text: `Glucose Average last 3 months `,
+    text: `Glucose Average`,
     position: "bottom"
   },
   animation: {
@@ -64,7 +64,7 @@ export default class ThirdPie extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    setInterval(() => {
       this.setState({
         labels: [">80", "80-180", "188>"],
         datasets: [

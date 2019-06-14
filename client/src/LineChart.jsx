@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Line, defaults } from "react-chartjs-2";
 
-defaults.global.mantianAspectRatio = false;
+defaults.global.mantianAspectRatio = true;
 
 const options = {
   title: {

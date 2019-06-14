@@ -29,7 +29,10 @@ const State = {
   sixM: "",
   pieM: "",
   pieThree: "",
-  pieSix: ""
+  pieSix: "",
+  newData: "",
+  glucoseAv: "",
+  Hbca1: ""
 };
 
 const rDay = Math.floor(Date.now() / 3600000) - 24;
@@ -134,6 +137,31 @@ class Profile extends Component {
     });
   };
 
+  monthData = () => {
+    this.generalFilter(40, "monthD");
+    this.generalPieData(this.state.monthD, "pieM");
+    this.setState({
+      newData: this.state.monthD
+    });
+    console.log("is it working", this.state.newData);
+  };
+
+  threeMonthData = () => {
+    this.generalFilter(25, "threeM");
+    this.generalPieData(this.state.threeM, "pieM");
+    this.setState({
+      newData: this.state.threeM
+    });
+  };
+
+  SixMonthData = () => {
+    this.generalFilter(5, "sixM");
+    this.generalPieData(this.state.sixM, "pieM");
+    this.setState({
+      newData: this.state.sixM
+    });
+  };
+
   amountForPieChart = () => {
     this.generalFilter(40, "monthD");
     this.generalPieData(this.state.monthD, "pieM");
@@ -208,6 +236,10 @@ class Profile extends Component {
     }
     const gAverage = totalGlu / denominator;
     const HCA1 = (gAverage + 46.7) / 28.7;
+    this.setState({
+      glucoseAv: gAverage,
+      Hbca1: HCA1
+    });
 
     console.log(`the glucose ave ${gAverage} and the HCA1 ${HCA1}`);
   };
@@ -220,6 +252,9 @@ class Profile extends Component {
         this.setState({
           data: s,
           timeStamp: Math.floor(Date.now() / 3600000)
+        });
+        this.setState({
+          newData: this.state.data
         });
         console.log("i am being called");
         this.amountForPieChart();
@@ -264,7 +299,8 @@ class Profile extends Component {
       sixM,
       pieM,
       pieSix,
-      pieThree
+      pieThree,
+      newData
     } = this.state;
     const isEnabled = glucose.length > 0;
     return (
@@ -305,25 +341,28 @@ class Profile extends Component {
             </div>
             <div className="box">
               <PieChart TotalDataPie={TotalDataPie} />
+              <div className="htext">
+                Your Hbca1 is {Math.floor(this.state.Hbca1)}
+                <br />
+                Your Glucose Average is {Math.floor(this.state.glucoseAv)}
+              </div>
             </div>
           </div>
-          <div className="box">
+          <div>
             <div className="box">
-              <SecondPie TotalDataPie={pieM} />
-              <LineOne DataForLine={monthD} />
+              <button className="SignOut " onClick={this.monthData}>
+                Monthly
+              </button>
+              <button className="SignOut " onClick={this.threeMonthData}>
+                Last Three months
+              </button>
+              <button className="SignOut " onClick={this.SixMonthData}>
+                Last Six months
+              </button>
             </div>
-            <div className="box">
-              <ThirdPie TotalDataPie={pieThree} />
-              <div className="box">
-                <FourthPie TotalDataPie={pieSix} />
-                <LineThree DataForLine={sixM} />
-              </div>
-            </div>
-            <div>
-              <div>
-                <ComLineChart />
-                <LineChart DataForLine={data} />
-              </div>
+            <div className="change">
+              <LineChart DataForLine={newData} />
+              <ThirdPie TotalDataPie={pieM} />
             </div>
           </div>
         </div>
@@ -343,4 +382,24 @@ console.log(
 
 console.log(this.props);
 console.log("id of the user", this.props.firebase.user);
+
+
+          <div className="boxG">
+            <SecondPie TotalDataPie={pieM} />
+          </div>
+          <LineOne DataForLine={monthD} />
+          <div className="boxG">
+            <ThirdPie TotalDataPie={pieThree} />
+            <LineTwo DataForLine={threeM} />
+          </div>
+          <div className="boxG">
+            <FourthPie TotalDataPie={pieSix} />
+
+            <LineChart DataForLine={data} />
+          </div>
+
+          <div>
+            <ComLineChart />
+            <LineThree DataForLine={sixM} /> />
+          </div>
 */

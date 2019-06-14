@@ -10,7 +10,7 @@ const options = {
   },
   title: {
     display: true,
-    text: ` Glucose Average `,
+    text: ` Your Hbca1 broken down `,
     position: "bottom"
   },
   animation: {

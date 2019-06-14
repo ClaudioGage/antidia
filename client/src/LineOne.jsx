@@ -23,7 +23,7 @@ const options = {
       }
     ]
   },
-  responsive: true
+  responsive: false
 };
 
 export default class LineOne extends Component {

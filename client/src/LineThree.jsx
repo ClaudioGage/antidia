@@ -45,7 +45,7 @@ export default class LineThree extends Component {
   }
 
   labelsDataSet = () => {
-    setTimeout(() => {
+    setInterval(() => {
       var Data = this.props.DataForLine;
       let label = [];
       let lineData = [];
